@@ -3,7 +3,7 @@ library(dplyr)
 # allzips <- readRDS("data/superzip.rds")
 allzips <- read.csv("data/berlin_bike_accidents_neukoelln_2002_2015.csv")
 
-allzips %<>% mutate(
+allzips <- allzips %>% mutate(
   latitude = jitter(lat),
   longitude = jitter(long),
   college = B2ALTER * 100,
