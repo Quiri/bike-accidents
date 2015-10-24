@@ -1,4 +1,7 @@
 library(dplyr)
+library(shiny)
+
+options(shiny.port = 2410)
 
 # allzips <- readRDS("data/superzip.rds")
 allzips <- read.csv("data/berlin_bike_accidents_neukoelln_2002_2015.csv")
@@ -7,7 +10,8 @@ allzips <- allzips %>% mutate(
   latitude = jitter(lat),
   longitude = jitter(long),
   college = B2ALTER * 100,
-  severity = BETEILIGTE + 2*LEICHTVERL + 5*SCHWERVERL + 10*GETOETETE
+  severity = BETEILIGTE + 2*LEICHTVERL + 5*SCHWERVERL + 10*GETOETETE,
+  date = as.Date(DATUM)
   )
 
 

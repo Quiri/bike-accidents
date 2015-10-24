@@ -74,10 +74,10 @@ shinyServer(function(input, output, session) {
     zipdata <- allzips
     zipdata <- zipdata[(as.character(allzips$UNFALLART_) %in% input$UNFALLART_),]
     zipdata <- zipdata[(as.character(allzips$WOCHENTAG_1) %in%  input$WOCHENTAG_1),]
-    
+    zipdata <- zipdata %>% filter(date >= as.Date(input$DATUM[1]) & date <= as.Date(input$DATUM[2]))
 #     colorBy <- input$color
 #     sizeBy <- input$size
-    
+    cat()
     colorBy <- 'WOCHENTAG_1'
     sizeBy <- 'WOCHENTAG_1'  
 
@@ -105,33 +105,31 @@ radius <- 50
 
     leafletProxy("map", data = zipdata) %>%
       clearShapes() %>%
-      addCircles(~longitude, ~latitude, radius=radius, layerId=~lat,
+      addCircles(~longitude, ~latitude, radius=radius, layerId=~PAGINIER,
         stroke=FALSE, fillOpacity=0.4, fillColor=pal(colorData)) %>%
       addLegend("bottomleft", pal=pal, values=colorData, title=colorBy,
         layerId="colorLegend")
   })
 
 ##  Show a popup at the given location
-  showZipcodePopup <- function(zipcode, lat, lng) {
-    selectedZip <- allzips[allzips$zipcode == zipcode,]
+  showZipcodePopup <- function(id, lat, lng) {
+    selectedZip <- allzips %>% filter(PAGINIER == id)
+    
+    cat(nrow(allzips), nrow(selectedZip))
+    cat(id)
     
     streetview <- sprintf("http://maps.google.com/maps?q=&layer=c&cbll=%s,%s&cbp=12,%s,0,0,%s",
                           lat,lng,90,10)
     
-    print(selectedZip$B1URS1)
-    
     content <- as.character(tagList(
       tags$a(href = streetview, "Street View"),
-    #  if(selectedZip$B1URS1 > 0) { icon("car") }, 
-    #  if(selectedZip$B2URS1 > 0) { icon("bicycle") },
+      if(selectedZip$B1URS1 > 0) { icon("car") }, 
+      if(selectedZip$B2URS1 > 0) { icon("bicycle") },
       tags$strong(HTML(sprintf("%s, %s %s",
         selectedZip$city.x, selectedZip$state.x, selectedZip$zipcode
       ))), tags$br(),
-      sprintf("Median household income: %s", dollar(selectedZip$income * 1000)), tags$br(),
-      sprintf("Percent of adults with BA: %s%%", as.integer(selectedZip$college)), tags$br(),
-      sprintf("Adult population: %s", selectedZip$adultpop)
     ))
-    leafletProxy("map") %>% addPopups(lng, lat, content, layerId = zipcode)
+    leafletProxy("map") %>% addPopups(lng, lat, content, layerId = id)
   }
   
 ## 
@@ -140,6 +138,8 @@ radius <- 50
   observe({
     leafletProxy("map") %>% clearPopups()
     event <- input$map_shape_click
+    print(names(event))
+    cat(event$id, event$lat, event$lng, "\n")
     if (is.null(event))
       return()
 

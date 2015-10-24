@@ -38,8 +38,9 @@ shinyUI(navbarPage("Berlin Neukölln Bike Accidents", id="nav",
 #         selectInput("color", "Color", vars),
 #         selectInput("size", "Size", vars, selected = "adultpop"),
 
+dateRangeInput("DATUM", label = h3("Date range"), startview = "year", start = "2002-01-01"),
 selectInput("UNFALLART_", "Kind of accident", accident_kind, multiple = TRUE, selected = accident_kind),
-selectInput("WOCHENTAG_1", "Day of week", wdays, multiple = TRUE, selected = wdays)
+selectInput("WOCHENTAG_1", "Day of week", wdays, multiple = TRUE, selected = wdays),
 # , 
 #         , 
 # 
