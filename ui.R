@@ -34,7 +34,7 @@ shinyUI(navbarPage("Berlin Neukölln Bike Accidents", id="nav",
 
       # Shiny versions prior to 0.11 should use class="modal" instead.
       absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
-        draggable = TRUE, top = 60, left = "auto", right = 20, bottom = "auto",
+        draggable = TRUE, top = 60, left = 20, right = "auto", bottom = "auto",
         width = 330, height = "auto",
 
         h2("Filter"),
@@ -43,13 +43,19 @@ shinyUI(navbarPage("Berlin Neukölln Bike Accidents", id="nav",
         selectInput("color", "Color by", select_color_by),
         #selectInput("size", "Size", vars, selected = "adultpop"),
 
-        selectInput("UNFALLART_", "Kind of accident", accident_kind, multiple = TRUE, selected = accident_kind),
-        selectInput("WOCHENTAG_1", "Day of week", wdays, multiple = TRUE, selected = wdays), 
+#         selectInput("color", "Color", vars),
+#         selectInput("size", "Size", vars, selected = "adultpop"),
 
-         conditionalPanel("input.color == 'superzip' || input.size == 'superzip'",
-           # Only prompt for threshold when coloring or sizing by superzip
-           numericInput("threshold", "SuperZIP threshold (top n percentile)", 5)
-         )
+selectInput("UNFALLART_", "Kind of accident", accident_kind, multiple = TRUE, selected = accident_kind),
+selectInput("WOCHENTAG_1", "Day of week", wdays, multiple = TRUE, selected = wdays)
+# , 
+#         , 
+# 
+#          conditionalPanel("input.color == 'superzip' || input.size == 'superzip'",
+#            # Only prompt for threshold when coloring or sizing by superzip
+#            numericInput("threshold", "SuperZIP threshold (top n percentile)", 5)
+#          )
+
 
 #         ,
 

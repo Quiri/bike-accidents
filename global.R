@@ -2,9 +2,15 @@ library(dplyr)
 
 # allzips <- readRDS("data/superzip.rds")
 allzips <- read.csv("data/berlin_bike_accidents_neukoelln_2002_2015.csv")
-allzips$latitude <- jitter(allzips$lat)
-allzips$longitude <- jitter(allzips$long)
-allzips$college <- allzips$B2ALTER * 100
+
+allzips %<>% mutate(
+  latitude = jitter(lat),
+  longitude = jitter(long),
+  college = B2ALTER * 100,
+  severity = BETEILIGTE + 2*LEICHTVERL + 5*SCHWERVERL + 10*GETOETETE
+  )
+
+
 # allzips$zipcode <- formatC(allzips$zipcode, width=5, format="d", flag="0")
 # row.names(allzips) <- allzips$zipcode
 

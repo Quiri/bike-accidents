@@ -79,7 +79,6 @@ shinyServer(function(input, output, session) {
     zipdata <- zipdata[(as.character(allzips$UNFALLART_) %in% input$UNFALLART_),]
     zipdata <- zipdata[(as.character(allzips$WOCHENTAG_1) %in%  input$WOCHENTAG_1),]
     
-    cat(select_color_by_variable[[input$color]])
     colorBy <- select_color_by_variable[[input$color]]
     sizeBy <- 'WOCHENTAG_1'  
 
@@ -117,14 +116,15 @@ radius <- 50
   showZipcodePopup <- function(zipcode, lat, lng) {
     selectedZip <- allzips[allzips$zipcode == zipcode,]
     
-    cat("I'm here")
-    
     streetview <- sprintf("http://maps.google.com/maps?q=&layer=c&cbll=%s,%s&cbp=12,%s,0,0,%s",
                           lat,lng,90,10)
-    cat(streetview)
+    
+    print(selectedZip$B1URS1)
     
     content <- as.character(tagList(
       tags$a(href = streetview, "Street View"),
+    #  if(selectedZip$B1URS1 > 0) { icon("car") }, 
+    #  if(selectedZip$B2URS1 > 0) { icon("bicycle") },
       tags$strong(HTML(sprintf("%s, %s %s",
         selectedZip$city.x, selectedZip$state.x, selectedZip$zipcode
       ))), tags$br(),
