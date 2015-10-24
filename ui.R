@@ -31,8 +31,8 @@ shinyUI(navbarPage("Berlin Neukölln Bike Accidents", id="nav",
 
         h2("Filter"),
 
-        selectInput("color", "Color", vars),
-        selectInput("size", "Size", vars, selected = "adultpop"),
+#         selectInput("color", "Color", vars),
+#         selectInput("size", "Size", vars, selected = "adultpop"),
 #         selectInput("size", "Size", vars, selected = "adultpop"),
         selectInput("WOCHENTAG_1", "Day of week", unique(as.character(allzips$WOCHENTAG_1)), selected = "Sonntag")
 # ,
