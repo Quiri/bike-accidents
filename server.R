@@ -106,11 +106,8 @@ radius <- 50
   showZipcodePopup <- function(zipcode, lat, lng) {
     selectedZip <- allzips[allzips$zipcode == zipcode,]
     
-    cat("I'm here")
-    
     streetview <- sprintf("http://maps.google.com/maps?q=&layer=c&cbll=%s,%s&cbp=12,%s,0,0,%s",
                           lat,lng,90,10)
-    cat(streetview)
     
     content <- as.character(tagList(
       tags$a(href = streetview, "Street View"),
