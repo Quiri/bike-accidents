@@ -72,15 +72,13 @@ shinyServer(function(input, output, session) {
   # according to the variables the user has chosen to map to color and size.
   observe({
     zipdata <- allzips
-    #if (input$UNFALLART_ != "alle") 
-      zipdata <- zipdata[(as.character(allzips$UNFALLART_) %in% input$UNFALLART_),]
-   # if (input$WOCHENTAG_1 != "alle") 
-      zipdata <- zipdata[(as.character(allzips$WOCHENTAG_1) %in%  input$WOCHENTAG_1),]
+    zipdata <- zipdata[(as.character(allzips$UNFALLART_) %in% input$UNFALLART_),]
+    zipdata <- zipdata[(as.character(allzips$WOCHENTAG_1) %in%  input$WOCHENTAG_1),]
     
     colorBy <- input$color
     sizeBy <- input$size
 
-    if (colorBy == "superzip") {
+    if (colorBy == "somecolor") {
       # Color and palette are treated specially in the "superzip" case, because
       # the values are categorical instead of continuous.
       colorData <- ifelse(zipdata$lat >= (100 - input$threshold), "yes", "no")
@@ -89,8 +87,10 @@ shinyServer(function(input, output, session) {
       colorData <- zipdata[[colorBy]]
       pal <- colorBin("Spectral", colorData, 7, pretty = FALSE)
     }
+    
+#     pal <- colorBin("Reds", c(0,1), 6)
 # 
-#     if (sizeBy == "superzip") {
+#     if (sizeBy == "somecolor") {
 #       # Radius is treated specially in the "superzip" case.
 #       radius <- ifelse(zipdata$centile >= (100 - input$threshold), 30000, 3000)
 #     } else {
