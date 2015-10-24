@@ -3,3 +3,4 @@
 .RData
 data/
 .Rproj*
+!data/re_vms_detailnetz.csv

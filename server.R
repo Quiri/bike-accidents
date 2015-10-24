@@ -136,20 +136,30 @@ radius <- 10 # zipdata[["severity"]] * 5
 
 ##  Show a popup at the given location
   showZipcodePopup <- function(id, lat, lng) {
-    selectedZip <- allzips %>% filter(PAGINIER == id)
+    u <- allzips %>% filter(PAGINIER == id)
+    selectedXing <- allzips %>% 
+      filter(xing == u$xing) %>%
+      filter(xingdist < 0.0005)
     
-    cat(nrow(allzips), nrow(selectedZip), id)
+        
+    cat(nrow(allzips), nrow(u), nrow(selectedXing), id, sum(selectedXing$LEICHTVERL))
     
     streetview <- sprintf("http://maps.google.com/maps?q=&layer=c&cbll=%s,%s&cbp=12,%s,0,0,%s",
-                          lat,lng,90,10)
+                          u$lat,u$long,90,10)
     
     content <- as.character(tagList(
       tags$a(href = streetview, "Street View"),
-      if(selectedZip$B1URS1 > 0) { icon("car") }, 
-      if(selectedZip$B2URS1 > 0) { icon("bicycle") },
-      tags$strong(HTML(sprintf("%s, %s %s",
-        selectedZip$city.x, selectedZip$state.x, selectedZip$zipcode
-      ))), tags$br()
+      if(u$B1URS1 > 0) { icon("car") }, 
+      if(u$B2URS1 > 0) { icon("bicycle") },
+      br(),
+      tags$h3("Unfall"),
+      p(tags$strong("Leichtverletze: "), HTML(nicons("male", u$LEICHTVERL))),
+      p(tags$strong("Schwerverletze: "), HTML(nicons("male", u$SCHWERVERL))),
+      p(tags$strong("Getötete: "), HTML(nicons("male", u$GETOETETE))),
+      tags$h3("Kreuzung"),
+      p(tags$strong("Leichtverletze: "), HTML(nicons("male",sum(selectedXing$LEICHTVERL)))),
+      p(tags$strong("Schwerverletze: "), HTML(nicons("male",sum(selectedXing$SCHWERVERL)))),
+      p(tags$strong("Getötete: "), HTML(nicons("male",sum(selectedXing$GETOETETE))))
     ))
     leafletProxy("map") %>% addPopups(lng, lat, content, layerId = id)
   }

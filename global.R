@@ -27,6 +27,12 @@ allzips <- allzips %>% mutate(
   xingdist = r$nn.dist[,1]
   )
 
+nicons <- function(ic, n) {
+  i <- icon(ic) %>% as.character
+  res <- paste(replicate(n, i), collapse = "")
+  return(HTML(res))
+}
+
 #allzips <- allzips %>% filter(xing == 633 & xingdist < 0.0005)
 
 
