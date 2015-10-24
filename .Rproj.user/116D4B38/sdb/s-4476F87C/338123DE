@@ -1,0 +1,17 @@
+{
+    "contents" : "library(shiny)\nlibrary(leaflet)\n\n# Choices for drop-downs\nvars <- c(\n  \"Is SuperZIP?\" = \"superzip\",\n  \"Centile score\" = \"centile\",\n  \"College education\" = \"college\",\n  \"Median income\" = \"income\",\n  \"Population\" = \"adultpop\"\n)\n\n\nshinyUI(navbarPage(\"Superzip\", id=\"nav\",\n\n  tabPanel(\"Interactive map\",\n    div(class=\"outer\",\n\n      tags$head(\n        # Include our custom CSS\n        includeCSS(\"styles.css\"),\n        includeScript(\"gomap.js\")\n      ),\n\n      leafletOutput(\"map\", width=\"100%\", height=\"100%\"),\n\n      # Shiny versions prior to 0.11 should use class=\"modal\" instead.\n      absolutePanel(id = \"controls\", class = \"panel panel-default\", fixed = TRUE,\n        draggable = TRUE, top = 60, left = \"auto\", right = 20, bottom = \"auto\",\n        width = 330, height = \"auto\",\n\n        h2(\"ZIP explorer\"),\n\n        selectInput(\"color\", \"Color\", vars),\n        selectInput(\"size\", \"Size\", vars, selected = \"adultpop\"),\n        conditionalPanel(\"input.color == 'superzip' || input.size == 'superzip'\",\n          # Only prompt for threshold when coloring or sizing by superzip\n          numericInput(\"threshold\", \"SuperZIP threshold (top n percentile)\", 5)\n        ),\n\n        plotOutput(\"histCentile\", height = 200),\n        plotOutput(\"scatterCollegeIncome\", height = 250)\n      ),\n\n      tags$div(id=\"cite\",\n        'Data compiled for ', tags$em('Coming Apart: The State of White America, 1960–2010'), ' by Charles Murray (Crown Forum, 2012).'\n      )\n    )\n  ),\n\n  tabPanel(\"Data explorer\",\n    fluidRow(\n      column(3,\n        selectInput(\"states\", \"States\", c(\"All states\"=\"\", structure(state.abb, names=state.name), \"Washington, DC\"=\"DC\"), multiple=TRUE)\n      ),\n      column(3,\n        conditionalPanel(\"input.states\",\n          selectInput(\"cities\", \"Cities\", c(\"All cities\"=\"\"), multiple=TRUE)\n        )\n      ),\n      column(3,\n        conditionalPanel(\"input.states\",\n          selectInput(\"zipcodes\", \"Zipcodes\", c(\"All zipcodes\"=\"\"), multiple=TRUE)\n        )\n      )\n    ),\n    fluidRow(\n      column(1,\n        numericInput(\"minScore\", \"Min score\", min=0, max=100, value=0)\n      ),\n      column(1,\n        numericInput(\"maxScore\", \"Max score\", min=0, max=100, value=100)\n      )\n    ),\n    hr(),\n    DT::dataTableOutput(\"ziptable\")\n  ),\n\n  conditionalPanel(\"false\", icon(\"crosshair\"))\n))\n",
+    "created" : 1445680362733.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3172636255",
+    "id" : "338123DE",
+    "lastKnownWriteTime" : 1445679935,
+    "path" : "~/shiny-examples/063-superzip-example/ui.R",
+    "project_path" : "ui.R",
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
