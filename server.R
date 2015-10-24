@@ -151,19 +151,28 @@ radius <- 10 # zipdata[["severity"]] * 5
     
     content <- as.character(tagList(
       tags$a(href = streetview, "Street View"),
-      if(u$B1URS1 > 0) { icon("car") }, 
-      if(u$B2URS1 > 0) { icon("bicycle") },
       br(),
       tags$h3("Unfall"),
-      p(tags$strong("Leichtverletze: "), HTML(nicons("male", u$LEICHTVERL))),
-      p(tags$strong("Schwerverletze: "), HTML(nicons("male", u$SCHWERVERL))),
-      p(tags$strong("Getötete: "), HTML(nicons("male", u$GETOETETE))),
+      div(tags$strong("Leichtverletze: "), HTML(nicons("male", u$LEICHTVERL))),
+      div(tags$strong("Schwerverletze: "), HTML(nicons("male", u$SCHWERVERL))),
+      div(tags$strong("Getötete: "), HTML(nicons("male", u$GETOETETE))),
+      div(tags$strong("Verursacher: "),
+          if(u$car) { icon("car") }, 
+          if(u$bike) { icon("bicycle") }
+      ),
       tags$h3("Kreuzung"),
-      p(tags$strong("Leichtverletze: "), HTML(nicons("male",sum(selectedXing$LEICHTVERL)))),
-      p(tags$strong("Schwerverletze: "), HTML(nicons("male",sum(selectedXing$SCHWERVERL)))),
-      p(tags$strong("Getötete: "), HTML(nicons("male",sum(selectedXing$GETOETETE))))
+      div(tags$strong("Leichtverletze: "), HTML(nicons("male",sum(selectedXing$LEICHTVERL)))),
+      div(tags$strong("Schwerverletze: "), HTML(nicons("male",sum(selectedXing$SCHWERVERL)))),
+      div(tags$strong("Getötete: "), HTML(nicons("male",sum(selectedXing$GETOETETE)))),
+      div(tags$strong("Verursacher: "), 
+          HTML(nicons("car", sum(selectedXing$car))),
+          HTML(nicons("bicycle", sum(selectedXing$bike)))
+      ),
+      div(u$xing)
     ))
-    leafletProxy("map") %>% addPopups(lng, lat, content, layerId = id)
+    leafletProxy("map") %>% 
+      addPopups(lng, lat, content, layerId = id, 
+                options = popupOptions(minWidth = 200, maxWidth = 800))
   }
   
 ## 
