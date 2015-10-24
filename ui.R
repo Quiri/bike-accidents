@@ -36,8 +36,8 @@ shinyUI(navbarPage("Berlin Neukölln Bike Accidents", id="nav",
         selectInput("color", "Color", vars),
         selectInput("size", "Size", vars, selected = "adultpop"),
 
-        selectInput("UNFALLART_", "Kind of accident", accident_kind, multiple = TRUE, selected = accident_kind[1]),
-        selectInput("WOCHENTAG_1", "Day of week", wdays, multiple = TRUE, selected = wdays), 
+        selectInput("UNFALLART_", "Kind of accident", accident_kind, multiple = FALSE, selected = accident_kind),
+        selectInput("WOCHENTAG_1", "Day of week", wdays, multiple = FALSE, selected = wdays), 
 
          conditionalPanel("input.color == 'superzip' || input.size == 'superzip'",
            # Only prompt for threshold when coloring or sizing by superzip
