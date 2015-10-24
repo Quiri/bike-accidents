@@ -33,6 +33,7 @@ shinyUI(navbarPage("Berlin Neukölln Bike Accidents", id="nav",
 
         h2("Filter"),
 
+
         selectInput("color", "Color", vars),
         selectInput("size", "Size", vars, selected = "adultpop"),
 
@@ -43,6 +44,7 @@ shinyUI(navbarPage("Berlin Neukölln Bike Accidents", id="nav",
            # Only prompt for threshold when coloring or sizing by superzip
            numericInput("threshold", "SuperZIP threshold (top n percentile)", 5)
          )
+
 #         ,
 
 #         plotOutput("histCentile", height = 200),

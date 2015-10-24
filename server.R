@@ -77,6 +77,9 @@ shinyServer(function(input, output, session) {
     
     colorBy <- input$color
     sizeBy <- input$size
+    
+    colorBy <- 'WOCHENTAG_1'
+    sizeBy <- 'WOCHENTAG_1'  
 
     if (colorBy == "somecolor") {
       # Color and palette are treated specially in the "superzip" case, because
@@ -84,7 +87,8 @@ shinyServer(function(input, output, session) {
       colorData <- ifelse(zipdata$lat >= (100 - input$threshold), "yes", "no")
       pal <- colorFactor("Spectral", colorData)
     } else {
-      colorData <- zipdata[[colorBy]]
+#       colorData <- zipdata[[colorBy]]
+      colorData <- c(1:7)
       pal <- colorBin("Spectral", colorData, 7, pretty = FALSE)
     }
     
