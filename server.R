@@ -107,32 +107,41 @@ radius <- 50
         layerId="colorLegend")
   })
 
-  # Show a popup at the given location
-#   showZipcodePopup <- function(zipcode, lat, lng) {
-#     selectedZip <- allzips[allzips$zipcode == zipcode,]
-#     content <- as.character(tagList(
-#       tags$h4("Score:", as.integer(selectedZip$centile)),
-#       tags$strong(HTML(sprintf("%s, %s %s",
-#         selectedZip$city.x, selectedZip$state.x, selectedZip$zipcode
-#       ))), tags$br(),
-#       sprintf("Median household income: %s", dollar(selectedZip$income * 1000)), tags$br(),
-#       sprintf("Percent of adults with BA: %s%%", as.integer(selectedZip$college)), tags$br(),
-#       sprintf("Adult population: %s", selectedZip$adultpop)
-#     ))
-#     leafletProxy("map") %>% addPopups(lng, lat, content, layerId = zipcode)
-#   }
+##  Show a popup at the given location
+  showZipcodePopup <- function(zipcode, lat, lng) {
+    selectedZip <- allzips[allzips$zipcode == zipcode,]
+    
+    cat("I'm here")
+    
+    streetview <- sprintf("http://maps.google.com/maps?q=&layer=c&cbll=%s,%s&cbp=12,%s,0,0,%s",
+                          lat,lng,90,10)
+    cat(streetview)
+    
+    content <- as.character(tagList(
+      tags$a(href = streetview, "Street View"),
+      tags$strong(HTML(sprintf("%s, %s %s",
+        selectedZip$city.x, selectedZip$state.x, selectedZip$zipcode
+      ))), tags$br(),
+      sprintf("Median household income: %s", dollar(selectedZip$income * 1000)), tags$br(),
+      sprintf("Percent of adults with BA: %s%%", as.integer(selectedZip$college)), tags$br(),
+      sprintf("Adult population: %s", selectedZip$adultpop)
+    ))
+    leafletProxy("map") %>% addPopups(lng, lat, content, layerId = zipcode)
+  }
+  
+## 
 
-  # When map is clicked, show a popup with city info
-#   observe({
-#     leafletProxy("map") %>% clearPopups()
-#     event <- input$map_shape_click
-#     if (is.null(event))
-#       return()
-# 
-#     isolate({
-#       showZipcodePopup(event$id, event$lat, event$lng)
-#     })
-#   })
+## When map is clicked, show a popup with city info
+  observe({
+    leafletProxy("map") %>% clearPopups()
+    event <- input$map_shape_click
+    if (is.null(event))
+      return()
+
+    isolate({
+      showZipcodePopup(event$id, event$lat, event$lng)
+    })
+  })
 
 
   ## Data Explorer ###########################################
