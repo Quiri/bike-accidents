@@ -71,7 +71,12 @@ shinyServer(function(input, output, session) {
   # This observer is responsible for maintaining the circles and legend,
   # according to the variables the user has chosen to map to color and size.
   observe({
-    zipdata <- allzips[as.character(allzips$WOCHENTAG_1)==input$WOCHENTAG_1,]
+    zipdata <- allzips
+    #if (input$UNFALLART_ != "alle") 
+      zipdata <- zipdata[(as.character(allzips$UNFALLART_) %in% input$UNFALLART_),]
+   # if (input$WOCHENTAG_1 != "alle") 
+      zipdata <- zipdata[(as.character(allzips$WOCHENTAG_1) %in%  input$WOCHENTAG_1),]
+    
     colorBy <- input$color
     sizeBy <- input$size
 
