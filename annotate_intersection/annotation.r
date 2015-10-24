@@ -18,4 +18,4 @@ intersections.coords <- spTransform(intersections, CRS.new)
 
 accidentsSp <- SpatialPoints(accidents.coords)
 intersectionsSp<- SpatialPoints(intersections.coords)
-accidents$nearest_intersection <- apply(gDistance(accidentsSp, intersectionsSp, byid=TRUE), 1, which.min)
+accidents$nearest_intersection <- apply(gDistance(intersectionsSp, accidentsSp, byid=TRUE), 1, which.min)
