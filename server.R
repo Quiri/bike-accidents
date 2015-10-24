@@ -13,6 +13,10 @@ set.seed(100)
 # By ordering by centile, we ensure that the (comparatively rare) SuperZIPs
 # will be drawn last and thus be easier to see
 # zipdata <- zipdata[order(zipdata$centile),]
+select_color_by_variable <- list(
+  Weekday = 'WOCHENTAG_1',
+  Severety = 'UNFALLKA0'
+)
 
 
 shinyServer(function(input, output, session) {
@@ -75,10 +79,8 @@ shinyServer(function(input, output, session) {
     zipdata <- zipdata[(as.character(allzips$UNFALLART_) %in% input$UNFALLART_),]
     zipdata <- zipdata[(as.character(allzips$WOCHENTAG_1) %in%  input$WOCHENTAG_1),]
     
-    colorBy <- input$color
-    sizeBy <- input$size
-    
-    colorBy <- 'WOCHENTAG_1'
+    cat(select_color_by_variable[[input$color]])
+    colorBy <- select_color_by_variable[[input$color]]
     sizeBy <- 'WOCHENTAG_1'  
 
     if (colorBy == "somecolor") {
@@ -87,7 +89,7 @@ shinyServer(function(input, output, session) {
       colorData <- ifelse(zipdata$lat >= (100 - input$threshold), "yes", "no")
       pal <- colorFactor("Spectral", colorData)
     } else {
-#       colorData <- zipdata[[colorBy]]
+      #colorData <- unique(zipdata[[colorBy]])
       colorData <- c(1:7)
       pal <- colorBin("Spectral", colorData, 7, pretty = FALSE)
     }
