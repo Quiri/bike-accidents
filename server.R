@@ -162,8 +162,8 @@ radius <- 10 # zipdata[["severity"]] * 5
   observe({
     leafletProxy("map") %>% clearPopups()
     event <- input$map_shape_click
-    print(names(event))
-    cat(event$id, event$lat, event$lng, "\n")
+#    print(names(event))
+#    cat(event$id, event$lat, event$lng, "\n")
     if (is.null(event))
       return()
 
