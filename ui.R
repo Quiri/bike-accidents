@@ -10,6 +10,15 @@ vars <- c(
   "Population" = "adultpop"
 )
 
+select_color_by <- c(
+  "Number_of_people_slightly_injured",
+  "Number_of_people_severely_injured",
+  "Number_of_people_dead",
+  "Total_number_of_people_injured",
+  "Weighted_severety"
+)
+
+
 wdays <- c("Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag")
 accident_kind <- c(unique(as.character(allzips$UNFALLART_)))
 
@@ -34,6 +43,8 @@ shinyUI(navbarPage("Berlin Neukölln Bike Accidents", id="nav",
         h2("Filter"),
 
 
+        selectInput("color", "Color by", select_color_by),
+        #selectInput("size", "Size", vars, selected = "adultpop"),
 
 #         selectInput("color", "Color", vars),
 #         selectInput("size", "Size", vars, selected = "adultpop"),

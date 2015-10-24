@@ -13,6 +13,15 @@ set.seed(100)
 # By ordering by centile, we ensure that the (comparatively rare) SuperZIPs
 # will be drawn last and thus be easier to see
 # zipdata <- zipdata[order(zipdata$centile),]
+select_color_by_variable <- list(
+  Weekday = 'WOCHENTAG_1',
+  Number_of_people_slightly_injured = 'LEICHTVERL',
+  Number_of_people_severely_injured = 'SCHWERVERL',
+  Number_of_people_dead = 'GETOETETE',
+  Total_number_of_people_injured = 'total_injured',
+  Weighted_severety = 'severity'
+  
+)
 
 
 shinyServer(function(input, output, session) {
@@ -74,22 +83,40 @@ shinyServer(function(input, output, session) {
     zipdata <- allzips
     zipdata <- zipdata[(as.character(allzips$UNFALLART_) %in% input$UNFALLART_),]
     zipdata <- zipdata[(as.character(allzips$WOCHENTAG_1) %in%  input$WOCHENTAG_1),]
+<<<<<<< HEAD
     zipdata <- zipdata %>% filter(date >= as.Date(input$DATUM[1]) & date <= as.Date(input$DATUM[2]))
 #     colorBy <- input$color
 #     sizeBy <- input$size
     cat()
     colorBy <- 'WOCHENTAG_1'
+=======
+    print(str(select_color_by_variable[[input$color]][1]))
+    print(allzips$select_color_by_variable[[input$color]])
+    zipdata <- zipdata[(allzips[select_color_by_variable[[input$color]]]) > 0, ]
+    # zipdata[(as.numeric(allzips$LEICHTVERL)>0),]
+    zipdata <- zipdata[]
+    colorBy <- select_color_by_variable[[input$color]]
+>>>>>>> db21297295284c18cf15bfbb880cb499026a3165
     sizeBy <- 'WOCHENTAG_1'  
-
+    head(zipdata['severity'])
     if (colorBy == "somecolor") {
       # Color and palette are treated specially in the "superzip" case, because
       # the values are categorical instead of continuous.
       colorData <- ifelse(zipdata$lat >= (100 - input$threshold), "yes", "no")
       pal <- colorFactor("Spectral", colorData)
-    } else {
-#       colorData <- zipdata[[colorBy]]
-      colorData <- c(1:7)
-      pal <- colorBin("Spectral", colorData, 7, pretty = FALSE)
+    } 
+    else { 
+#      if (colorBy == "severity") {
+        colorData <- na.omit(zipdata[select_color_by_variable[[input$color]]])
+        pal <- colorBin("YlOrRd", colorData, 5, pretty = FALSE)
+        print(pal)
+        
+#       }
+#       else{
+#         #colorData <- unique(zipdata[[colorBy]])
+#         colorData <- c(1:7)
+#         #pal <- colorBin("Spectral", colorData, 7, pretty = FALSE)
+#       }
     }
     
 #     pal <- colorBin("Reds", c(0,1), 6)
@@ -101,12 +128,17 @@ shinyServer(function(input, output, session) {
 #       radius <- zipdata[[sizeBy]] / max(zipdata[[sizeBy]]) * 30000
 #     }
 
-radius <- 50
+radius <- 10 # zipdata[["severity"]] * 5
 
     leafletProxy("map", data = zipdata) %>%
       clearShapes() %>%
+<<<<<<< HEAD
       addCircles(~longitude, ~latitude, radius=radius, layerId=~PAGINIER,
         stroke=FALSE, fillOpacity=0.4, fillColor=pal(colorData)) %>%
+=======
+      addCircles(~longitude, ~latitude, radius=radius, layerId=~lat,
+        stroke=FALSE, fillOpacity=0.4, fillColor='red') %>%  #pal(colorData)
+>>>>>>> db21297295284c18cf15bfbb880cb499026a3165
       addLegend("bottomleft", pal=pal, values=colorData, title=colorBy,
         layerId="colorLegend")
   })
