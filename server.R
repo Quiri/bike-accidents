@@ -118,12 +118,12 @@ radius <- 50
     streetview <- sprintf("http://maps.google.com/maps?q=&layer=c&cbll=%s,%s&cbp=12,%s,0,0,%s",
                           lat,lng,90,10)
     
-    cat(selectedZip$B1URS1, "\n")
+    print(selectedZip$B1URS1)
     
     content <- as.character(tagList(
       tags$a(href = streetview, "Street View"),
-      #if(selectedZip$B1URS1 > 0) { icon("car") }, 
-      #if(selectedZip$B2URS1 > 0) { icon("bicycle") },
+    #  if(selectedZip$B1URS1 > 0) { icon("car") }, 
+    #  if(selectedZip$B2URS1 > 0) { icon("bicycle") },
       tags$strong(HTML(sprintf("%s, %s %s",
         selectedZip$city.x, selectedZip$state.x, selectedZip$zipcode
       ))), tags$br(),
