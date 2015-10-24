@@ -80,19 +80,19 @@ shinyServer(function(input, output, session) {
   # This observer is responsible for maintaining the circles and legend,
   # according to the variables the user has chosen to map to color and size.
   observe({
-    zipdata <- allzips
-    zipdata <- zipdata[(as.character(allzips$UNFALLART_) %in% input$UNFALLART_),]
-    zipdata <- zipdata[(as.character(allzips$WOCHENTAG_1) %in%  input$WOCHENTAG_1),]
-    zipdata <- zipdata[(as.character(allzips$LICHTVERH) %in%  input$LICHTVERH),]
-    zipdata <- zipdata[(as.character(allzips$STRASSENZUS) %in%  input$STRASSENZUS),]
-    zipdata <- zipdata[(as.character(allzips$B1VERKEHRS) %in%  input$B1VERKEHRS),]
-    zipdata <- zipdata[(as.character(allzips$B1URSACHE1) %in%  input$B1URSACHE1),]
-    zipdata <- zipdata[(as.character(allzips$month) %in%  input$month),]
+    input$UNFALLART; input$WOCHENTAG_1; input$LICHTVERH; input$STRASSENZUS; input$B1VERKEHRS; input$B1URSACHE1; input$month; input$DATUM;
+    zipdata <- allzips; cat(nrow(zipdata), "1\n")
+    zipdata <- zipdata[(as.character(zipdata$UNFALLART_) %in% isolate(input$UNFALLART_)),]; cat(nrow(zipdata), "2\n")
+    zipdata <- zipdata[(as.character(zipdata$WOCHENTAG_1) %in%  isolate(input$WOCHENTAG_1)),]; cat(nrow(zipdata), "3\n")
+    zipdata <- zipdata[(as.character(zipdata$LICHTVERH) %in%  isolate(input$LICHTVERH)),]; cat(nrow(zipdata), "4\n")
+    zipdata <- zipdata[(as.character(zipdata$STRASSENZUS) %in%  isolate(input$STRASSENZUS)),]; cat(nrow(zipdata), "5\n")
+    zipdata <- zipdata[(as.character(zipdata$B1VERKEHRS) %in%  isolate(input$B1VERKEHRS)),]; cat(nrow(zipdata), "6\n")
+    zipdata <- zipdata[(as.character(zipdata$B1URSACHE1) %in%  isolate(input$B1URSACHE1)),]; cat(nrow(zipdata), "7\n")
+    zipdata <- zipdata[(as.character(zipdata$month) %in%  isolate(input$month)),]; cat(nrow(zipdata), "8\n")
     
                 
-    zipdata <- zipdata %>% filter(date >= as.Date(input$DATUM[1]) & date <= as.Date(input$DATUM[2]))
-    
-    #zipdata <- zipdata[(allzips[select_color_by_variable[[input$color]]]) > 0, ]
+    zipdata <- zipdata %>% filter(date >= as.Date(isolate(input$DATUM[1])) & date <= as.Date(isolate(input$DATUM[2]))); cat(nrow(zipdata), "9\n")
+    #zipdata <- zipdata[(zipdata[select_color_by_variable[[input$color]]]) > 0, ]
     
 #    zipdata <- zipdata[]
 #    colorBy <- select_color_by_variable[[input$color]]

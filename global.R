@@ -28,6 +28,7 @@ allzips$lat <- cc$Y_SOLDNER
 allzips$long <- cc$X_SOLDNER
 
 allzips <- allzips %>% mutate(
+  B1URSACHE1 = B1URSACHE1 %>% gsub("\"", "", .),
   latitude = jitter(lat),
   longitude = jitter(long),
   college = B2ALTER * 100,
@@ -47,7 +48,7 @@ nicons <- function(ic, n) {
   return(HTML(res))
 }
 
-allzips <- allzips %>% filter(xing == 5655 & xingdist < 0.0005)
+#allzips <- allzips %>% filter(xing == 5655 & xingdist < 0.0005)
 
 
 

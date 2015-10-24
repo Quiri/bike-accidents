@@ -128,7 +128,7 @@ column(3,wellPanel(
   selectInput("UNFALLART_", "Kind of accident", UNFALLART_list, multiple = TRUE, selected = UNFALLART_list, selectize=FALSE),
   selectInput("WOCHENTAG_1", "Day of week", WOCHENTAG_1_list, multiple = TRUE, selected = WOCHENTAG_1_list, selectize=FALSE),
   selectInput("STRASSENZUS", "Road condition", STRASSENZUS_list, multiple = TRUE, selected = STRASSENZUS_list, selectize=FALSE),
-  selectInput("B1VERKEHRS", "Causer", B1VERKEHRS_list, multiple = TRUE, selected = "Radfahrer", selectize=FALSE),
+  selectInput("B1VERKEHRS", "Causer", B1VERKEHRS_list, multiple = TRUE, selected = B1VERKEHRS_list, selectize=FALSE),
   selectInput("B1URSACHE1", "Cause for accident", B1URSACHE1_list, multiple = TRUE, selected = B1URSACHE1_list, selectize=FALSE),
   style = "overflow-y:auto;border-right:solid, height: 600px"
 )))
