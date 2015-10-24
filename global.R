@@ -11,11 +11,8 @@ allzips <- allzips %>% mutate(
   longitude = jitter(long),
   college = B2ALTER * 100,
   severity = BETEILIGTE + 2*LEICHTVERL + 5*SCHWERVERL + 10*GETOETETE,
-<<<<<<< HEAD
-  date = as.Date(DATUM)
-=======
+  date = as.Date(DATUM), 
   total_injured = LEICHTVERL + SCHWERVERL + GETOETETE
->>>>>>> db21297295284c18cf15bfbb880cb499026a3165
   )
 
 

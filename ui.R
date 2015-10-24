@@ -20,7 +20,7 @@ select_color_by <- c(
 
 
 wdays <- c("Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag")
-accident_kind <- c(unique(as.character(allzips$UNFALLART_)))
+accident_kind <- unique(as.character(allzips$UNFALLART_))
 
 shinyUI(navbarPage("Berlin Neukölln Bike Accidents", id="nav",
 
@@ -44,6 +44,7 @@ shinyUI(navbarPage("Berlin Neukölln Bike Accidents", id="nav",
 
 
         selectInput("color", "Color by", select_color_by),
+        
         #selectInput("size", "Size", vars, selected = "adultpop"),
 
 #         selectInput("color", "Color", vars),
@@ -51,7 +52,7 @@ shinyUI(navbarPage("Berlin Neukölln Bike Accidents", id="nav",
 
 dateRangeInput("DATUM", label = h3("Date range"), startview = "year", start = "2002-01-01"),
 selectInput("UNFALLART_", "Kind of accident", accident_kind, multiple = TRUE, selected = accident_kind),
-selectInput("WOCHENTAG_1", "Day of week", wdays, multiple = TRUE, selected = wdays),
+selectInput("WOCHENTAG_1", "Day of week", wdays, multiple = TRUE, selected = wdays)
 # , 
 #         , 
 # 

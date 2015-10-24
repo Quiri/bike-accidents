@@ -83,20 +83,12 @@ shinyServer(function(input, output, session) {
     zipdata <- allzips
     zipdata <- zipdata[(as.character(allzips$UNFALLART_) %in% input$UNFALLART_),]
     zipdata <- zipdata[(as.character(allzips$WOCHENTAG_1) %in%  input$WOCHENTAG_1),]
-<<<<<<< HEAD
     zipdata <- zipdata %>% filter(date >= as.Date(input$DATUM[1]) & date <= as.Date(input$DATUM[2]))
-#     colorBy <- input$color
-#     sizeBy <- input$size
-    cat()
-    colorBy <- 'WOCHENTAG_1'
-=======
-    print(str(select_color_by_variable[[input$color]][1]))
-    print(allzips$select_color_by_variable[[input$color]])
+    #colorBy <- 'WOCHENTAG_1'
     zipdata <- zipdata[(allzips[select_color_by_variable[[input$color]]]) > 0, ]
     # zipdata[(as.numeric(allzips$LEICHTVERL)>0),]
     zipdata <- zipdata[]
     colorBy <- select_color_by_variable[[input$color]]
->>>>>>> db21297295284c18cf15bfbb880cb499026a3165
     sizeBy <- 'WOCHENTAG_1'  
     head(zipdata['severity'])
     if (colorBy == "somecolor") {
@@ -132,13 +124,8 @@ radius <- 10 # zipdata[["severity"]] * 5
 
     leafletProxy("map", data = zipdata) %>%
       clearShapes() %>%
-<<<<<<< HEAD
       addCircles(~longitude, ~latitude, radius=radius, layerId=~PAGINIER,
-        stroke=FALSE, fillOpacity=0.4, fillColor=pal(colorData)) %>%
-=======
-      addCircles(~longitude, ~latitude, radius=radius, layerId=~lat,
         stroke=FALSE, fillOpacity=0.4, fillColor='red') %>%  #pal(colorData)
->>>>>>> db21297295284c18cf15bfbb880cb499026a3165
       addLegend("bottomleft", pal=pal, values=colorData, title=colorBy,
         layerId="colorLegend")
   })
@@ -147,8 +134,7 @@ radius <- 10 # zipdata[["severity"]] * 5
   showZipcodePopup <- function(id, lat, lng) {
     selectedZip <- allzips %>% filter(PAGINIER == id)
     
-    cat(nrow(allzips), nrow(selectedZip))
-    cat(id)
+    cat(nrow(allzips), nrow(selectedZip), id)
     
     streetview <- sprintf("http://maps.google.com/maps?q=&layer=c&cbll=%s,%s&cbp=12,%s,0,0,%s",
                           lat,lng,90,10)
@@ -159,7 +145,7 @@ radius <- 10 # zipdata[["severity"]] * 5
       if(selectedZip$B2URS1 > 0) { icon("bicycle") },
       tags$strong(HTML(sprintf("%s, %s %s",
         selectedZip$city.x, selectedZip$state.x, selectedZip$zipcode
-      ))), tags$br(),
+      ))), tags$br()
     ))
     leafletProxy("map") %>% addPopups(lng, lat, content, layerId = id)
   }
