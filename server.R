@@ -35,9 +35,9 @@ shinyServer(function(input, output, session) {
         urlTemplate = "//{s}.tiles.mapbox.com/v3/jcheng.map-5ebohr46/{z}/{x}/{y}.png",
         attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>'
       ) %>%
-      setView(lng = 13.42743, lat = 52.45615, zoom = 13)
+      setView(lng = 13.44201, lat = 52.46765517, zoom = 15)
   })
-
+  52.46765517
   # A reactive expression that returns the set of zips that are
   # in bounds right now
   zipsInBounds <- reactive({
@@ -87,6 +87,7 @@ shinyServer(function(input, output, session) {
     zipdata <- zipdata[(as.character(allzips$STRASSENZUS) %in%  input$STRASSENZUS),]
     zipdata <- zipdata[(as.character(allzips$B1VERKEHRS) %in%  input$B1VERKEHRS),]
     zipdata <- zipdata[(as.character(allzips$B1URSACHE1) %in%  input$B1URSACHE1),]
+    zipdata <- zipdata[(as.character(allzips$month) %in%  input$month),]
     
                 
     zipdata <- zipdata %>% filter(date >= as.Date(input$DATUM[1]) & date <= as.Date(input$DATUM[2]))
