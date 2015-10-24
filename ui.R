@@ -33,17 +33,7 @@ shinyUI(navbarPage("Berlin Neukölln Bike Accidents", id="nav",
 
         h2("Filter"),
 
-<<<<<<< HEAD
-#         selectInput("color", "Color", vars),
-#         selectInput("size", "Size", vars, selected = "adultpop"),
-#         selectInput("size", "Size", vars, selected = "adultpop"),
-        selectInput("WOCHENTAG_1", "Day of week", unique(as.character(allzips$WOCHENTAG_1)), selected = "Sonntag")
-# ,
-#         conditionalPanel("input.color == 'superzip' || input.size == 'superzip'",
-#           # Only prompt for threshold when coloring or sizing by superzip
-#           numericInput("threshold", "SuperZIP threshold (top n percentile)", 5)
-#         )
-=======
+
         selectInput("color", "Color", vars),
         selectInput("size", "Size", vars, selected = "adultpop"),
 
@@ -54,7 +44,7 @@ shinyUI(navbarPage("Berlin Neukölln Bike Accidents", id="nav",
            # Only prompt for threshold when coloring or sizing by superzip
            numericInput("threshold", "SuperZIP threshold (top n percentile)", 5)
          )
->>>>>>> 4683f705f063872614894865405c1187caf91764
+
 #         ,
 
 #         plotOutput("histCentile", height = 200),
