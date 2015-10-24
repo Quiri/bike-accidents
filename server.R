@@ -15,7 +15,12 @@ set.seed(100)
 # zipdata <- zipdata[order(zipdata$centile),]
 select_color_by_variable <- list(
   Weekday = 'WOCHENTAG_1',
-  Severety = 'severity'
+  Number_of_people_slightly_injured = 'LEICHTVERL',
+  Number_of_people_severely_injured = 'SCHWERVERL',
+  Number_of_people_dead = 'GETOETETE',
+  Total_number_of_people_injured = 'total_injured',
+  Weighted_severety = 'severity'
+  
 )
 
 
@@ -78,7 +83,11 @@ shinyServer(function(input, output, session) {
     zipdata <- allzips
     zipdata <- zipdata[(as.character(allzips$UNFALLART_) %in% input$UNFALLART_),]
     zipdata <- zipdata[(as.character(allzips$WOCHENTAG_1) %in%  input$WOCHENTAG_1),]
-    
+    print(str(select_color_by_variable[[input$color]][1]))
+    print(allzips$select_color_by_variable[[input$color]])
+    zipdata <- zipdata[(allzips[select_color_by_variable[[input$color]]]) > 0, ]
+    # zipdata[(as.numeric(allzips$LEICHTVERL)>0),]
+    zipdata <- zipdata[]
     colorBy <- select_color_by_variable[[input$color]]
     sizeBy <- 'WOCHENTAG_1'  
     head(zipdata['severity'])
@@ -89,15 +98,17 @@ shinyServer(function(input, output, session) {
       pal <- colorFactor("Spectral", colorData)
     } 
     else { 
-      if (colorBy == "severity") {
-        colorData <- zipdata[["severity"]]
-        pal <- colorBin("Spectral", colorData, 10, pretty = FALSE)
-      }
-      else{
-        #colorData <- unique(zipdata[[colorBy]])
-        colorData <- c(1:7)
-        pal <- colorBin("Spectral", colorData, 7, pretty = FALSE)
-      }
+#      if (colorBy == "severity") {
+        colorData <- na.omit(zipdata[select_color_by_variable[[input$color]]])
+        pal <- colorBin("YlOrRd", colorData, 5, pretty = FALSE)
+        print(pal)
+        
+#       }
+#       else{
+#         #colorData <- unique(zipdata[[colorBy]])
+#         colorData <- c(1:7)
+#         #pal <- colorBin("Spectral", colorData, 7, pretty = FALSE)
+#       }
     }
     
 #     pal <- colorBin("Reds", c(0,1), 6)
@@ -109,12 +120,12 @@ shinyServer(function(input, output, session) {
 #       radius <- zipdata[[sizeBy]] / max(zipdata[[sizeBy]]) * 30000
 #     }
 
-radius <- 50
+radius <- 10 # zipdata[["severity"]] * 5
 
     leafletProxy("map", data = zipdata) %>%
       clearShapes() %>%
       addCircles(~longitude, ~latitude, radius=radius, layerId=~lat,
-        stroke=FALSE, fillOpacity=0.4, fillColor=pal(colorData)) %>%
+        stroke=FALSE, fillOpacity=0.4, fillColor='red') %>%  #pal(colorData)
       addLegend("bottomleft", pal=pal, values=colorData, title=colorBy,
         layerId="colorLegend")
   })

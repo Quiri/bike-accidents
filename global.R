@@ -7,7 +7,8 @@ allzips <- allzips %>% mutate(
   latitude = jitter(lat),
   longitude = jitter(long),
   college = B2ALTER * 100,
-  severity = BETEILIGTE + 2*LEICHTVERL + 5*SCHWERVERL + 10*GETOETETE
+  severity = BETEILIGTE + 2*LEICHTVERL + 5*SCHWERVERL + 10*GETOETETE,
+  total_injured = LEICHTVERL + SCHWERVERL + GETOETETE
   )
 
 

@@ -11,8 +11,11 @@ vars <- c(
 )
 
 select_color_by <- c(
-  "Weekday",
-  "Severety"
+  "Number_of_people_slightly_injured",
+  "Number_of_people_severely_injured",
+  "Number_of_people_dead",
+  "Total_number_of_people_injured",
+  "Weighted_severety"
 )
 
 
