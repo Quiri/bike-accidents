@@ -15,7 +15,7 @@ set.seed(100)
 # zipdata <- zipdata[order(zipdata$centile),]
 select_color_by_variable <- list(
   Weekday = 'WOCHENTAG_1',
-  Severety = 'UNFALLKA0'
+  Severety = 'severity'
 )
 
 
@@ -81,16 +81,23 @@ shinyServer(function(input, output, session) {
     
     colorBy <- select_color_by_variable[[input$color]]
     sizeBy <- 'WOCHENTAG_1'  
-
+    head(zipdata['severity'])
     if (colorBy == "somecolor") {
       # Color and palette are treated specially in the "superzip" case, because
       # the values are categorical instead of continuous.
       colorData <- ifelse(zipdata$lat >= (100 - input$threshold), "yes", "no")
       pal <- colorFactor("Spectral", colorData)
-    } else {
-      #colorData <- unique(zipdata[[colorBy]])
-      colorData <- c(1:7)
-      pal <- colorBin("Spectral", colorData, 7, pretty = FALSE)
+    } 
+    else { 
+      if (colorBy == "severity") {
+        colorData <- zipdata[["severity"]]
+        pal <- colorBin("Spectral", colorData, 10, pretty = FALSE)
+      }
+      else{
+        #colorData <- unique(zipdata[[colorBy]])
+        colorData <- c(1:7)
+        pal <- colorBin("Spectral", colorData, 7, pretty = FALSE)
+      }
     }
     
 #     pal <- colorBin("Reds", c(0,1), 6)
