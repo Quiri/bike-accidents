@@ -27,7 +27,7 @@ allzips <- allzips %>% mutate(
   xingdist = r$nn.dist[,1]
   )
 
-allzips <- allzips %>% filter(xing == 633 & xingdist < 0.0005)
+#allzips <- allzips %>% filter(xing == 633 & xingdist < 0.0005)
 
 
 
