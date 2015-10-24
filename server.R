@@ -35,9 +35,9 @@ shinyServer(function(input, output, session) {
         urlTemplate = "//{s}.tiles.mapbox.com/v3/jcheng.map-5ebohr46/{z}/{x}/{y}.png",
         attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>'
       ) %>%
-      setView(lng = 13.42743, lat = 52.45615, zoom = 13)
+      setView(lng = 13.44201, lat = 52.46765517, zoom = 15)
   })
-
+  52.46765517
   # A reactive expression that returns the set of zips that are
   # in bounds right now
   zipsInBounds <- reactive({
@@ -138,6 +138,8 @@ radius <- 10 # zipdata[["severity"]] * 5
 
 ##  Show a popup at the given location
   showZipcodePopup <- function(id, lat, lng) {
+    cat(lng)
+    cat(lat)
     selectedZip <- allzips %>% filter(PAGINIER == id)
     
     cat(nrow(allzips), nrow(selectedZip), id)
