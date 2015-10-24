@@ -83,33 +83,37 @@ shinyServer(function(input, output, session) {
     zipdata <- allzips
     zipdata <- zipdata[(as.character(allzips$UNFALLART_) %in% input$UNFALLART_),]
     zipdata <- zipdata[(as.character(allzips$WOCHENTAG_1) %in%  input$WOCHENTAG_1),]
+    zipdata <- zipdata[(as.character(allzips$LICHTVERH) %in%  input$LICHTVERH),]
+    zipdata <- zipdata[(as.character(allzips$STRASSENZUS) %in%  input$STRASSENZUS),]
+    zipdata <- zipdata[(as.character(allzips$URSACHE) %in%  input$URSACHE),]
+    
     zipdata <- zipdata %>% filter(date >= as.Date(input$DATUM[1]) & date <= as.Date(input$DATUM[2]))
-    #colorBy <- 'WOCHENTAG_1'
-    zipdata <- zipdata[(allzips[select_color_by_variable[[input$color]]]) > 0, ]
-    # zipdata[(as.numeric(allzips$LEICHTVERL)>0),]
-    zipdata <- zipdata[]
-    colorBy <- select_color_by_variable[[input$color]]
-    sizeBy <- 'WOCHENTAG_1'  
-    head(zipdata['severity'])
-    if (colorBy == "somecolor") {
-      # Color and palette are treated specially in the "superzip" case, because
-      # the values are categorical instead of continuous.
-      colorData <- ifelse(zipdata$lat >= (100 - input$threshold), "yes", "no")
-      pal <- colorFactor("Spectral", colorData)
-    } 
-    else { 
-#      if (colorBy == "severity") {
-        colorData <- na.omit(zipdata[select_color_by_variable[[input$color]]])
-        pal <- colorBin("YlOrRd", colorData, 5, pretty = FALSE)
-        print(pal)
-        
-#       }
-#       else{
-#         #colorData <- unique(zipdata[[colorBy]])
-#         colorData <- c(1:7)
-#         #pal <- colorBin("Spectral", colorData, 7, pretty = FALSE)
-#       }
-    }
+    
+    #zipdata <- zipdata[(allzips[select_color_by_variable[[input$color]]]) > 0, ]
+    
+#    zipdata <- zipdata[]
+#    colorBy <- select_color_by_variable[[input$color]]
+#    sizeBy <- 'WOCHENTAG_1'  
+
+#     if (colorBy == "somecolor") {
+#       # Color and palette are treated specially in the "superzip" case, because
+#       # the values are categorical instead of continuous.
+#       colorData <- ifelse(zipdata$lat >= (100 - input$threshold), "yes", "no")
+#       pal <- colorFactor("Spectral", colorData)
+#     } 
+#     else { 
+# #      if (colorBy == "severity") {
+#         colorData <- na.omit(zipdata[select_color_by_variable[[input$color]]])
+#         pal <- colorBin("YlOrRd", colorData, 5, pretty = FALSE)
+#         print(pal)
+#         
+# #       }
+# #       else{
+# #         #colorData <- unique(zipdata[[colorBy]])
+# #         colorData <- c(1:7)
+# #         #pal <- colorBin("Spectral", colorData, 7, pretty = FALSE)
+# #       }
+#     }
     
 #     pal <- colorBin("Reds", c(0,1), 6)
 # 
@@ -125,9 +129,9 @@ radius <- 10 # zipdata[["severity"]] * 5
     leafletProxy("map", data = zipdata) %>%
       clearShapes() %>%
       addCircles(~longitude, ~latitude, radius=radius, layerId=~PAGINIER,
-        stroke=FALSE, fillOpacity=0.4, fillColor='red') %>%  #pal(colorData)
-      addLegend("bottomleft", pal=pal, values=colorData, title=colorBy,
-        layerId="colorLegend")
+        stroke=FALSE, fillOpacity=0.4, fillColor='red') # %>%  #pal(colorData)
+#       addLegend("bottomleft", pal=pal, values=colorData, title=colorBy,
+#         layerId="colorLegend")
   })
 
 ##  Show a popup at the given location

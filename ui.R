@@ -21,6 +21,9 @@ select_color_by <- c(
 
 wdays <- c("Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag")
 accident_kind <- unique(as.character(allzips$UNFALLART_))
+day_time = c("Tageslicht", "Daemmerung","Dunkelheit")
+strassenzust_list = unique(as.character(allzips$STRASSENZUS))
+cause_list = unique(as.character(allzips$URSACHE))
 
 shinyUI(navbarPage("Berlin Neukölln Bike Accidents", id="nav",
 
@@ -43,16 +46,18 @@ shinyUI(navbarPage("Berlin Neukölln Bike Accidents", id="nav",
         h2("Filter"),
 
 
-        selectInput("color", "Color by", select_color_by),
-        
+        #selectInput("color", "Color by", select_color_by),
         #selectInput("size", "Size", vars, selected = "adultpop"),
-
 #         selectInput("color", "Color", vars),
 #         selectInput("size", "Size", vars, selected = "adultpop"),
 
 dateRangeInput("DATUM", label = h3("Date range"), startview = "year", start = "2002-01-01"),
-selectInput("UNFALLART_", "Kind of accident", accident_kind, multiple = TRUE, selected = accident_kind),
-selectInput("WOCHENTAG_1", "Day of week", wdays, multiple = TRUE, selected = wdays)
+selectInput("LICHTVERH", "Lightning condition", day_time, multiple = TRUE, selected = day_time, selectize=FALSE),
+selectInput("UNFALLART_", "Kind of accident", accident_kind, multiple = TRUE, selected = accident_kind, selectize=FALSE),
+selectInput("WOCHENTAG_1", "Day of week", wdays, multiple = TRUE, selected = wdays, selectize=FALSE),
+selectInput("STRASSENZUS", "Road condition", strassenzust_list, multiple = TRUE, selected = strassenzust_list, selectize=FALSE),
+selectInput("URSACHE", "Cause for accident", cause_list, multiple = TRUE, selected = cause_list, selectize=FALSE)
+
 # , 
 #         , 
 # 
