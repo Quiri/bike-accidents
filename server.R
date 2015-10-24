@@ -154,6 +154,7 @@ radius <- 10 # zipdata[["severity"]] * 5
       tags$a(href = streetview, "Street View"),
       br(),
       tags$h3("Unfall"),
+      p(as.character(u$date), u$UHRZEIT),
       div(tags$strong("Leichtverletze: "), HTML(nicons("male", u$LEICHTVERL))),
       div(tags$strong("Schwerverletze: "), HTML(nicons("male", u$SCHWERVERL))),
       div(tags$strong("Getötete: "), HTML(nicons("male", u$GETOETETE))),
@@ -168,8 +169,7 @@ radius <- 10 # zipdata[["severity"]] * 5
       div(tags$strong("Verursacher: "), 
           HTML(nicons("car", sum(selectedXing$car))),
           HTML(nicons("bicycle", sum(selectedXing$bike)))
-      ),
-      div(u$xing)
+      )
     ))
     leafletProxy("map") %>% 
       addPopups(lng, lat, content, layerId = id, 
