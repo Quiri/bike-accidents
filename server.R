@@ -75,8 +75,8 @@ shinyServer(function(input, output, session) {
     zipdata <- zipdata[(as.character(allzips$UNFALLART_) %in% input$UNFALLART_),]
     zipdata <- zipdata[(as.character(allzips$WOCHENTAG_1) %in%  input$WOCHENTAG_1),]
     
-    colorBy <- input$color
-    sizeBy <- input$size
+#     colorBy <- input$color
+#     sizeBy <- input$size
     
     colorBy <- 'WOCHENTAG_1'
     sizeBy <- 'WOCHENTAG_1'  
