@@ -138,8 +138,6 @@ radius <- 10 # zipdata[["severity"]] * 5
 
 ##  Show a popup at the given location
   showZipcodePopup <- function(id, lat, lng) {
-    cat(lng)
-    cat(lat)
     selectedZip <- allzips %>% filter(PAGINIER == id)
     
     cat(nrow(allzips), nrow(selectedZip), id)
