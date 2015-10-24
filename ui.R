@@ -28,7 +28,7 @@ shinyUI(navbarPage("Berlin Neukölln Bike Accidents", id="nav",
 
       # Shiny versions prior to 0.11 should use class="modal" instead.
       absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
-        draggable = TRUE, top = 60, left = "auto", right = 20, bottom = "auto",
+        draggable = TRUE, top = 60, left = 20, right = "auto", bottom = "auto",
         width = 330, height = "auto",
 
         h2("Filter"),
