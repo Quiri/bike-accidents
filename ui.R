@@ -25,6 +25,7 @@ LICHTVERH_list = c("Tageslicht", "Daemmerung","Dunkelheit")
 STRASSENZUS_list = unique(as.character(allzips$STRASSENZUS))
 B1VERKEHRS_list = unique(as.character(allzips$B1VERKEHRS))
 B1URSACHE1_list = unique(as.character(allzips$B1URSACHE1))
+month_list = c("01", "02", "03", "04", "05", "06" ,"07", "08", "09", "10", "11", "12" )
 
 shinyUI(
 #   navbarPage("Berlin Neukölln Bike Accidents", id="nav",
@@ -122,6 +123,7 @@ shinyUI(
 ),
 column(3,wellPanel(
   dateRangeInput("DATUM", "Date range", startview = "year", start = "2002-01-01"),
+  selectInput("month", "Month", month_list, multiple = TRUE, selected = month_list, selectize=FALSE),
   selectInput("LICHTVERH", "Lightning condition", LICHTVERH_list, multiple = TRUE, selected = LICHTVERH_list, selectize=FALSE),
   selectInput("UNFALLART_", "Kind of accident", UNFALLART_list, multiple = TRUE, selected = UNFALLART_list, selectize=FALSE),
   selectInput("WOCHENTAG_1", "Day of week", WOCHENTAG_1_list, multiple = TRUE, selected = WOCHENTAG_1_list, selectize=FALSE),

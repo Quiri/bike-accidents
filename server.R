@@ -87,6 +87,7 @@ shinyServer(function(input, output, session) {
     zipdata <- zipdata[(as.character(allzips$STRASSENZUS) %in%  input$STRASSENZUS),]
     zipdata <- zipdata[(as.character(allzips$B1VERKEHRS) %in%  input$B1VERKEHRS),]
     zipdata <- zipdata[(as.character(allzips$B1URSACHE1) %in%  input$B1URSACHE1),]
+    zipdata <- zipdata[(as.character(allzips$month) %in%  input$month),]
     
                 
     zipdata <- zipdata %>% filter(date >= as.Date(input$DATUM[1]) & date <= as.Date(input$DATUM[2]))
