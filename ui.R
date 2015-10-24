@@ -11,7 +11,7 @@ vars <- c(
 )
 
 
-shinyUI(navbarPage("Superzip", id="nav",
+shinyUI(navbarPage("Berlin Neukölln Bike Accidents", id="nav",
 
   tabPanel("Interactive map",
     div(class="outer",
@@ -29,22 +29,26 @@ shinyUI(navbarPage("Superzip", id="nav",
         draggable = TRUE, top = 60, left = "auto", right = 20, bottom = "auto",
         width = 330, height = "auto",
 
-        h2("ZIP explorer"),
+        h2("Filter"),
 
         selectInput("color", "Color", vars),
         selectInput("size", "Size", vars, selected = "adultpop"),
+#         selectInput("size", "Size", vars, selected = "adultpop"),
+        selectInput("WOCHENTAG_1", "Day of week", unique(as.character(allzips$WOCHENTAG_1)), selected = "Sonntag"),
         conditionalPanel("input.color == 'superzip' || input.size == 'superzip'",
           # Only prompt for threshold when coloring or sizing by superzip
           numericInput("threshold", "SuperZIP threshold (top n percentile)", 5)
-        ),
+        )
+#         ,
 
-        plotOutput("histCentile", height = 200),
-        plotOutput("scatterCollegeIncome", height = 250)
-      ),
-
-      tags$div(id="cite",
-        'Data compiled for ', tags$em('Coming Apart: The State of White America, 1960–2010'), ' by Charles Murray (Crown Forum, 2012).'
+#         plotOutput("histCentile", height = 200),
+#         plotOutput("scatterCollegeIncome", height = 250)
       )
+# ,
+
+#       tags$div(id="cite",
+#         'Data compiled for ', tags$em('Coming Apart: The State of White America, 1960–2010'), ' by Charles Murray (Crown Forum, 2012).'
+#       )
     )
   ),
 
