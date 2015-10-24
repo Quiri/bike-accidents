@@ -13,15 +13,15 @@ set.seed(100)
 # By ordering by centile, we ensure that the (comparatively rare) SuperZIPs
 # will be drawn last and thus be easier to see
 # zipdata <- zipdata[order(zipdata$centile),]
-select_color_by_variable <- list(
-  Weekday = 'WOCHENTAG_1',
-  Number_of_people_slightly_injured = 'LEICHTVERL',
-  Number_of_people_severely_injured = 'SCHWERVERL',
-  Number_of_people_dead = 'GETOETETE',
-  Total_number_of_people_injured = 'total_injured',
-  Weighted_severety = 'severity'
-  
-)
+# select_color_by_variable <- list(
+#   Weekday = 'WOCHENTAG_1',
+#   Number_of_people_slightly_injured = 'LEICHTVERL',
+#   Number_of_people_severely_injured = 'SCHWERVERL',
+#   Number_of_people_dead = 'GETOETETE',
+#   Total_number_of_people_injured = 'total_injured',
+#   Weighted_severety = 'severity'
+#   
+# )
 
 
 shinyServer(function(input, output, session) {
@@ -85,8 +85,10 @@ shinyServer(function(input, output, session) {
     zipdata <- zipdata[(as.character(allzips$WOCHENTAG_1) %in%  input$WOCHENTAG_1),]
     zipdata <- zipdata[(as.character(allzips$LICHTVERH) %in%  input$LICHTVERH),]
     zipdata <- zipdata[(as.character(allzips$STRASSENZUS) %in%  input$STRASSENZUS),]
-    zipdata <- zipdata[(as.character(allzips$URSACHE) %in%  input$URSACHE),]
+    zipdata <- zipdata[(as.character(allzips$B1VERKEHRS) %in%  input$B1VERKEHRS),]
+    zipdata <- zipdata[(as.character(allzips$B1URSACHE1) %in%  input$B1URSACHE1),]
     
+                
     zipdata <- zipdata %>% filter(date >= as.Date(input$DATUM[1]) & date <= as.Date(input$DATUM[2]))
     
     #zipdata <- zipdata[(allzips[select_color_by_variable[[input$color]]]) > 0, ]
