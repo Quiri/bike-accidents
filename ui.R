@@ -27,7 +27,7 @@ B1VERKEHRS_list = unique(as.character(allzips$B1VERKEHRS))
 B1URSACHE1_list = unique(as.character(allzips$B1URSACHE1))
 
 shinyUI(
-  # navbarPage("Berlin Neukölln Bike Accidents", id="nav",
+   navbarPage("Berlin Neukölln Bike Accidents", id="nav",
                    fluidPage(
                      fluidRow(
 
@@ -130,5 +130,5 @@ column(3,wellPanel(
   style = "overflow-y:auto;border-right:solid, height: 600px"
 )))
 )
-# )
+)
 )
