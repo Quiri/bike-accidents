@@ -36,7 +36,7 @@ allzips <- allzips %>% mutate(
   date = as.Date(DATUM), 
   year=as.numeric(substr(DATUM,1,4)),
   total_injured = LEICHTVERL + SCHWERVERL + GETOETETE,
-  month=substr(allzips$DATUM,6,7),
+  month=as.numeric(substr(allzips$DATUM,6,7)),
   xing = xing[r$nn.index,"xid"],
   xingdist = r$nn.dist[,1],
   bike = (B1VERKEHRS == "Radfahrer" & B1URS1 > 0) | (B2VERKEHRS == "Radfahrer" & B2URS1 > 0),

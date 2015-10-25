@@ -95,9 +95,10 @@ shinyServer(function(input, output, session) {
     zipdata <- zipdata[(as.character(zipdata$STRASSENZUS) %in%  input$STRASSENZUS),]; cat(nrow(zipdata), "5\n")
     zipdata <- zipdata[(as.character(zipdata$B1VERKEHRS) %in%  input$B1VERKEHRS),]; cat(nrow(zipdata), "6\n")
     zipdata <- zipdata[(as.character(zipdata$B1URSACHE1) %in%  input$B1URSACHE1),]; cat(nrow(zipdata), "7\n")
-    zipdata <- zipdata[(as.character(zipdata$month) %in%  input$month),]; cat(nrow(zipdata), "8\n")
-    zipdata <- zipdata[(zipdata$year >= isolate(input$year[1])&(zipdata$year <=  isolate(input$year[2]))),]; cat(nrow(zipdata), "9\n") 
-
+    # zipdata <- zipdata[(as.character(zipdata$month) %in%  input$month),]; cat(nrow(zipdata), "8\n")
+    zipdata <- zipdata[(zipdata$year >= input$year[1])&(zipdata$year <=  input$year[2]),]; cat(nrow(zipdata), "9\n") 
+    zipdata <- zipdata[(zipdata$month >= input$month[1])&(zipdata$month <=  input$month[2]),]; cat(nrow(zipdata), "9\n") 
+    
     
                 
     zipdata <- zipdata %>% filter(date >= as.Date(input$DATUM[1]) & date <= as.Date(input$DATUM[2])); cat(nrow(zipdata), "9\n")
