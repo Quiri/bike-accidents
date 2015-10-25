@@ -4,6 +4,7 @@ library(RColorBrewer)
 library(scales)
 library(lattice)
 library(dplyr)
+library(ggplot2)
 
 # Leaflet bindings are a bit slow; for now we'll just sample to compensate
 set.seed(100)
@@ -69,6 +70,13 @@ shinyServer(function(input, output, session) {
 #       border = 'white')
 #   })
 
+# output$plot1 <- renderPlot({
+#   plotdata <- zipsInBounds()$zipdata
+#   p <- ggplot(plotdata)+
+#     geom_bar(aes(x=lat,y=long))
+#   print(p)
+# })
+
 #   output$scatterCollegeIncome <- renderPlot({
 #     # If no zipcodes are in view, don't plot
 #     if (nrow(zipsInBounds()) == 0)
@@ -89,6 +97,7 @@ shinyServer(function(input, output, session) {
     zipdata <- zipdata[(as.character(zipdata$B1VERKEHRS) %in%  isolate(input$B1VERKEHRS)),]; cat(nrow(zipdata), "6\n")
     zipdata <- zipdata[(as.character(zipdata$B1URSACHE1) %in%  isolate(input$B1URSACHE1)),]; cat(nrow(zipdata), "7\n")
     zipdata <- zipdata[(as.character(zipdata$month) %in%  isolate(input$month)),]; cat(nrow(zipdata), "8\n")
+    zipdata <- zipdata[(zipdata$year >= isolate(input$year[1])&(zipdata$year <=  isolate(input$year[2]))),]; cat(nrow(zipdata), "9\n")
     
                 
     zipdata <- zipdata %>% filter(date >= as.Date(isolate(input$DATUM[1])) & date <= as.Date(isolate(input$DATUM[2]))); cat(nrow(zipdata), "9\n")

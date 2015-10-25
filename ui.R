@@ -122,6 +122,8 @@ shinyUI(
   conditionalPanel("false", icon("crosshair"))
 ),
 column(3,wellPanel(
+  # plotOutput('plot1'),
+  sliderInput("year","Year",min= 2002,max= 2014,animate=True),
   dateRangeInput("DATUM", "Date range", startview = "year", start = "2002-01-01"),
   selectInput("month", "Month", month_list, multiple = TRUE, selected = month_list, selectize=FALSE),
   selectInput("LICHTVERH", "Lightning condition", LICHTVERH_list, multiple = TRUE, selected = LICHTVERH_list, selectize=FALSE),
