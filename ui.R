@@ -59,8 +59,8 @@ shinyUI(
 ),
 column(3,wellPanel(
   # plotOutput('plot1'),
-  sliderInput("year","Year",min= 2002,max= 2014,value=c(2002:2014),animate=animationOptions(interval=3000),sep = "",ticks=F),
-  sliderInput("month","Month",min= 1,max= 12,value=c(1:12),animate=animationOptions(interval=3000),ticks=F),
+  sliderInput("year","Year", min = 2002, max = 2014, value = c(2002,2014), animate=animationOptions(interval=2000), sep = "", ticks = FALSE),
+  sliderInput("month","Month", min = 1, max = 12, value= c(1,12) , animate=animationOptions(interval=2000), ticks = FALSE),
   dateRangeInput("DATUM", "Date range", startview = "year", start = "2002-01-01"),
   selectInput("LICHTVERH", "Lightning condition", LICHTVERH_list, multiple = TRUE, selected = LICHTVERH_list, selectize=FALSE),
   selectInput("UNFALLART_", "Kind of accident", UNFALLART_list, multiple = TRUE, selected = UNFALLART_list, selectize=FALSE),
