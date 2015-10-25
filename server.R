@@ -88,53 +88,19 @@ shinyServer(function(input, output, session) {
   # This observer is responsible for maintaining the circles and legend,
   # according to the variables the user has chosen to map to color and size.
   observe({
-    input$UNFALLART; input$WOCHENTAG_1; input$LICHTVERH; input$STRASSENZUS; input$B1VERKEHRS; input$B1URSACHE1; input$month; input$DATUM;
     zipdata <- allzips; cat(nrow(zipdata), "1\n")
-    zipdata <- zipdata[(as.character(zipdata$UNFALLART_) %in% isolate(input$UNFALLART_)),]; cat(nrow(zipdata), "2\n")
-    zipdata <- zipdata[(as.character(zipdata$WOCHENTAG_1) %in%  isolate(input$WOCHENTAG_1)),]; cat(nrow(zipdata), "3\n")
-    zipdata <- zipdata[(as.character(zipdata$LICHTVERH) %in%  isolate(input$LICHTVERH)),]; cat(nrow(zipdata), "4\n")
-    zipdata <- zipdata[(as.character(zipdata$STRASSENZUS) %in%  isolate(input$STRASSENZUS)),]; cat(nrow(zipdata), "5\n")
-    zipdata <- zipdata[(as.character(zipdata$B1VERKEHRS) %in%  isolate(input$B1VERKEHRS)),]; cat(nrow(zipdata), "6\n")
-    zipdata <- zipdata[(as.character(zipdata$B1URSACHE1) %in%  isolate(input$B1URSACHE1)),]; cat(nrow(zipdata), "7\n")
-    zipdata <- zipdata[(as.character(zipdata$month) %in%  isolate(input$month)),]; cat(nrow(zipdata), "8\n")
-    zipdata <- zipdata[(zipdata$year >= isolate(input$year[1])&(zipdata$year <=  isolate(input$year[2]))),]; cat(nrow(zipdata), "9\n")
+    zipdata <- zipdata[(as.character(zipdata$UNFALLART_) %in% input$UNFALLART_),]; cat(nrow(zipdata), "2\n")
+    zipdata <- zipdata[(as.character(zipdata$WOCHENTAG_1) %in%  input$WOCHENTAG_1),]; cat(nrow(zipdata), "3\n")
+    zipdata <- zipdata[(as.character(zipdata$LICHTVERH) %in%  input$LICHTVERH),]; cat(nrow(zipdata), "4\n")
+    zipdata <- zipdata[(as.character(zipdata$STRASSENZUS) %in%  input$STRASSENZUS),]; cat(nrow(zipdata), "5\n")
+    zipdata <- zipdata[(as.character(zipdata$B1VERKEHRS) %in%  input$B1VERKEHRS),]; cat(nrow(zipdata), "6\n")
+    zipdata <- zipdata[(as.character(zipdata$B1URSACHE1) %in%  input$B1URSACHE1),]; cat(nrow(zipdata), "7\n")
+    zipdata <- zipdata[(as.character(zipdata$month) %in%  input$month),]; cat(nrow(zipdata), "8\n")
+    zipdata <- zipdata[(zipdata$year >= isolate(input$year[1])&(zipdata$year <=  isolate(input$year[2]))),]; cat(nrow(zipdata), "9\n") 
+
     
                 
-    zipdata <- zipdata %>% filter(date >= as.Date(isolate(input$DATUM[1])) & date <= as.Date(isolate(input$DATUM[2]))); cat(nrow(zipdata), "9\n")
-    #zipdata <- zipdata[(zipdata[select_color_by_variable[[input$color]]]) > 0, ]
-    
-#    zipdata <- zipdata[]
-#    colorBy <- select_color_by_variable[[input$color]]
-#    sizeBy <- 'WOCHENTAG_1'  
-
-#     if (colorBy == "somecolor") {
-#       # Color and palette are treated specially in the "superzip" case, because
-#       # the values are categorical instead of continuous.
-#       colorData <- ifelse(zipdata$lat >= (100 - input$threshold), "yes", "no")
-#       pal <- colorFactor("Spectral", colorData)
-#     } 
-#     else { 
-# #      if (colorBy == "severity") {
-#         colorData <- na.omit(zipdata[select_color_by_variable[[input$color]]])
-#         pal <- colorBin("YlOrRd", colorData, 5, pretty = FALSE)
-#         print(pal)
-#         
-# #       }
-# #       else{
-# #         #colorData <- unique(zipdata[[colorBy]])
-# #         colorData <- c(1:7)
-# #         #pal <- colorBin("Spectral", colorData, 7, pretty = FALSE)
-# #       }
-#     }
-    
-#     pal <- colorBin("Reds", c(0,1), 6)
-# 
-#     if (sizeBy == "somecolor") {
-#       # Radius is treated specially in the "superzip" case.
-#       radius <- ifelse(zipdata$centile >= (100 - input$threshold), 30000, 3000)
-#     } else {
-#       radius <- zipdata[[sizeBy]] / max(zipdata[[sizeBy]]) * 30000
-#     }
+    zipdata <- zipdata %>% filter(date >= as.Date(input$DATUM[1]) & date <= as.Date(input$DATUM[2])); cat(nrow(zipdata), "9\n")
 
 radius <- 10 # zipdata[["severity"]] * 5
 
