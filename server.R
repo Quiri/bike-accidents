@@ -99,8 +99,6 @@ shinyServer(function(input, output, session) {
     zipdata <- zipdata[(zipdata$year >= input$year[1])&(zipdata$year <=  input$year[2]),]; cat(nrow(zipdata), "9\n") 
     zipdata <- zipdata[(zipdata$month >= input$month[1])&(zipdata$month <=  input$month[2]),]; cat(nrow(zipdata), "9\n") 
     
-    
-                
     zipdata <- zipdata %>% filter(date >= as.Date(input$DATUM[1]) & date <= as.Date(input$DATUM[2])); cat(nrow(zipdata), "9\n")
 
 radius <- 10 # zipdata[["severity"]] * 5
