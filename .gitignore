@@ -1,6 +1,7 @@
 .Rproj.user
 .Rhistory
 .RData
+*.Rproj
 data/
 .Rproj*
 !data/re_vms_detailnetz.csv
