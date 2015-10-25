@@ -125,7 +125,7 @@ radius <- 10 # zipdata[["severity"]] * 5
                           u$lat,u$long,90,10)
     
     content <- as.character(tagList(
-      tags$a(href = streetview, "Street View"),
+      tags$a(href = streetview, target = "_blank", "Street View"),
       br(),
       tags$h3("Unfall"),
       p(as.character(u$date), u$UHRZEIT),
