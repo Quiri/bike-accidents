@@ -18,14 +18,28 @@ cc <- coordinates(accidentsSp) %>% data.frame
 xing <- read.csv("data/re_vms_detailnetz.csv")
 names(xing) <- c("long", "lat", "xid")
 
+allzips$lat <- cc$Y_SOLDNER
+allzips$long <- cc$X_SOLDNER
+
+randomdata <- function(n,allzips, xing) {
+  xing <- head(xing, round(n/3))
+  xings <- ceiling(runif(n) * nrow(xing))
+  xing2 <- xing[xings,]
+  accs <- ceiling(runif(n) * nrow(accidents))
+  accidents <- allzips[accs,]
+  accidents$lat <- jitter(xing2$lat)
+  accidents$long <- jitter(xing2$long)
+  return(accidents)
+}
+
+#allzips <- randomdata(2000, allzips, xing)
+
 r <- get.knnx(
   xing %>% select(long, lat) %>% data.matrix, 
   allzips %>% select(long, lat) %>% data.matrix, 
   1
 ) 
 
-allzips$lat <- cc$Y_SOLDNER
-allzips$long <- cc$X_SOLDNER
 
 allzips <- allzips %>% mutate(
   B1URSACHE1 = B1URSACHE1 %>% gsub("\"", "", .),
