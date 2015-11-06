@@ -96,10 +96,10 @@ shinyServer(function(input, output, session) {
     zipdata <- zipdata[(as.character(zipdata$B1VERKEHRS) %in%  input$B1VERKEHRS),]; cat(nrow(zipdata), "6\n")
     zipdata <- zipdata[(as.character(zipdata$B1URSACHE1) %in%  input$B1URSACHE1),]; cat(nrow(zipdata), "7\n")
     # zipdata <- zipdata[(as.character(zipdata$month) %in%  input$month),]; cat(nrow(zipdata), "8\n")
-    zipdata <- zipdata[(zipdata$year >= input$year[1])&(zipdata$year <=  input$year[2]),]; cat(nrow(zipdata), "9\n") 
+    zipdata <- zipdata[(zipdata$year >= input$year[1])&(zipdata$year <=  input$year[2]),]; cat(nrow(zipdata), "8\n") 
     zipdata <- zipdata[(zipdata$month >= input$month[1])&(zipdata$month <=  input$month[2]),]; cat(nrow(zipdata), "9\n") 
     
-    zipdata <- zipdata %>% filter(date >= as.Date(input$DATUM[1]) & date <= as.Date(input$DATUM[2])); cat(nrow(zipdata), "9\n")
+    zipdata <- zipdata %>% filter(date >= as.Date(input$DATUM[1]) & date <= as.Date(input$DATUM[2])); cat(nrow(zipdata), "10\n")
 
 radius <- 10 # zipdata[["severity"]] * 5
 
@@ -118,7 +118,6 @@ radius <- 10 # zipdata[["severity"]] * 5
       filter(xing == u$xing) %>%
       filter(xingdist < 0.0005)
     
-        
     cat(nrow(allzips), nrow(u), nrow(selectedXing), id, sum(selectedXing$LEICHTVERL))
     
     streetview <- sprintf("http://maps.google.com/maps?q=&layer=c&cbll=%s,%s&cbp=12,%s,0,0,%s",

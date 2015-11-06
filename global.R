@@ -32,7 +32,7 @@ randomdata <- function(n,allzips, xing) {
   return(accidents)
 }
 
-#allzips <- randomdata(2000, allzips, xing)
+allzips <- randomdata(2000, allzips, xing)
 
 r <- get.knnx(
   xing %>% select(long, lat) %>% data.matrix, 
@@ -59,7 +59,7 @@ allzips <- allzips %>% mutate(
 
 nicons <- function(ic, n) {
   i <- icon(ic) %>% as.character
-  res <- paste(replicate(n, i), collapse = "")
+  res <- paste(replicate(n[1], i), collapse = "") # in randommode sometimes double entries
   return(HTML(res))
 }
 
